@@ -1,8 +1,5 @@
 ## Overview of the Data
-The dataset contains several pages from anonymised planning decision notices. Each page was originally a scanned document and generally represents a different section of a planning decision notice. The goal of this analysis was to identify the type of page and extract important information such as:
-
-- **Application numbers**
-- **Applicant names**
+The dataset contains several pages from anonymised planning decision notices. Each page was originally a scanned document and generally represents a different section of a planning decision notice. The goal was to identify the type of page and extract important information such as **Application numbers** and **Applicant names**.
 
 From the sample results, four main types of pages were identified:
 
@@ -14,23 +11,17 @@ From the sample results, four main types of pages were identified:
 ---
 
 ## Findings from the Results
-The extracted results demonstrate that useful information can be identified from the pages.
+The extracted results show that useful information can be identified from the pages.
+Application numbers were successfully found in most pages. Some pages include more than one application number, which suggests that the document may refer to multiple related planning cases. For example, Page 1 contains three application numbers, while Page 4 contains two. Page 2 only contains one application number, and Page 3 does not contain any visible number.
 
-- **Application Numbers:**  
-  Application numbers were successfully found in most pages. Some pages include more than one application number, indicating multiple related planning cases. For example:
-  - Page 1: three application numbers
-  - Page 4: two application numbers
-  - Page 2: one application number
-  - Page 3: no visible application number
 
-- **Applicant Names:**  
-  Applicant names were extracted in most cases. Examples include:
-  - Page 1: `Mr. & Mrs. J.M Doe` (joint applicants)
-  - Page 2: `Mr M Dale` (typical planning document format)
-  - Page 4: `Mrs AM Stephens` (names with initials)
-  - Page 3: `"As named on the reverse"` (applicant name appears on another page)
+- **Applicant Names** were also extracted in most cases. For example:
+•	Page 1 identifies Mr. & Mrs. J.M Doe, showing joint applicants.
+•	Page 2 extracts Mr M Dale, which might be a typical format used in planning documents.
+•	Page 4 extracts Mrs AM Stephens, showing names with initials.
+•	Page 3 contains the phrase “As named on the reverse”, which means the applicant name is likely written on another page rather than the current one.
 
-These results indicate that planning decision notices generally follow a **consistent structure**.
+These results show that planning decision notices usually follow a similar structure.
 
 ---
 
