@@ -1,5 +1,3 @@
-# Brief Analysis Report
-
 ## Overview of the Data
 The dataset contains several pages from anonymised planning decision notices. Each page was originally a scanned document and generally represents a different section of a planning decision notice. The goal of this analysis was to identify the type of page and extract important information such as:
 
