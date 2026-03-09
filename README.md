@@ -1,7 +1,7 @@
 ## System Overview
 This pipeline uses a **"consensus" model** between two extraction strategies to maximize accuracy.  
 - **Engine A**: Regex-driven, high-precision pattern matching.  
-- **Engine B**: Positional logic fallback, designed to capture edge cases caused by OCR noise.  
+- **Engine B**: Positional logic fallback, designed to capture edge cases caused by Optical Character Recognition (OCR) noise.  
 
 The system merges outputs from both engines to provide the most accurate applicant and application number extraction.
 
@@ -60,12 +60,12 @@ Fallback for Engine A, targeting edge cases.
 
 ## 3. Execution Workflow
 
-1. **PDF Conversion**: Convert PDF pages to images at **300 DPI** for optimal OCR quality.  
-2. **OCR Processing**: Tesseract runs with `--psm 6` (single uniform text block) to preserve layout of forms.  
+1. **PDF Conversion**: Convert PDF pages to images for optimal OCR quality.  
+2. **OCR Processing**: Tesseract runs (single uniform text block) to preserve layout of forms.  
 3. **Parallel Extraction**:
    - `run_pipeline_A` → Extracts category, application numbers, and applicant names.  
    - `run_pipeline_B` → Captures applicant names using positional logic as a fallback.  
-4. **Data Merging**: Merge both pipelines on **Page Number** (Left Join).  
+4. **Data Merging**: Merge both pipelines on **File Number** (Left Join).  
 5. **Coalescing**: If Engine A returns `"N/A"` or `"None"` for an applicant, replace it with Engine B's result.
 
 ---
