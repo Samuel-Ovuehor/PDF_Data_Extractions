@@ -1,7 +1,7 @@
-##System Overview##
+**System Overview**
 The pipeline uses a "consensus" model between two extraction strategies to maximize accuracy. While Engine A relies on strict pattern matching (Regex), Engine B uses positional logic to capture edge cases where patterns may fail due to Optical Character Recognition (OCR) noise.
 
-1. Environment Setup
+#1. Environment Setup
 System Dependencies
 The code requires the Tesseract OCR engine and Poppler (for PDF rendering) to be installed on the host operating system:
 •	Tesseract-OCR: The primary engine for Optical Character Recognition.
@@ -15,7 +15,7 @@ Pandas: Data manipulation and CSV export.
 Re: Regular expression engine for pattern matching.
 
 
-2. Implementation Logic
+#2. Implementation Logic
 A. Document Classification (NLPClassifier)
 The classifier identifies the document type by scanning the OCR output for specific legal phrases.
 •	Mechanism: Case-insensitive keyword matching.
@@ -34,7 +34,7 @@ Acts as a fallback for Engine A.
 •	Logic: It looks for the "Applicant" label and extracts text either immediately following a colon (:) or on the subsequent line, regardless of whether a title (Mr/Mrs) is present.
 •	Validation: Implements a "Blacklist" (e.g., Council, London, Road) to ensure address lines aren't misidentified as people.
 
-3. Execution Workflow
+**3. Execution Workflow**
 1.	Conversion: The PDF is converted to images at 300 DPI to ensure high OCR legibility.
 2.	OCR Processing: Tesseract is configured with --psm 6 (Assume a single uniform block of text) to maintain the layout of form-based documents.
 3.	Parallel Execution: * run_pipeline_A extracts category, application numbers, and names.
