@@ -1,6 +1,6 @@
-**Brief Analysis Report**
+##Brief Analysis Report
 
-## Overview of the Data
+**Overview of the Data**
 The dataset contains several pages from anonymised planning decision notices. Each page was originally a scanned document and generally represents a different section of a planning decision notice. The goal was to identify the type of page and extract important information such as **Application numbers** and **Applicant names**.
 
 From the sample results, four main types of pages were identified:
@@ -12,7 +12,7 @@ From the sample results, four main types of pages were identified:
 
 ---
 
-## Findings from the Results
+**Findings from the Results**
 The extracted results show that useful information can be identified from the pages.
 Application numbers were successfully found in most pages. Some pages include more than one application number, which suggests that the document may refer to multiple related planning cases. For example, Page 1 contains three application numbers, while Page 4 contains two. Page 2 only contains one application number, and Page 3 does not contain any visible number.
 
@@ -27,7 +27,7 @@ These results show that planning decision notices usually follow a similar struc
 
 ---
 
-## Limitations
+**Limitations**
 - **Scanned Document Quality:**  
   Older documents may contain faded text, marks, or unusual formatting, which can lead to OCR mistakes affecting extracted information.
   
@@ -42,7 +42,7 @@ These results show that planning decision notices usually follow a similar struc
 
 ---
 
-## Alternate Methods / Future Improvements
+**Alternate Methods / Future Improvements**
 - **Advanced Text Analysis:**  
   Use more sophisticated NLP techniques to understand the content of each page, instead of relying solely on specific phrases.
 
