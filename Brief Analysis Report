@@ -1,35 +1,62 @@
-##Brief Analysis Report##
+# Brief Analysis Report
 
-**Overview of the Data**
-The dataset contains several pages from anonymised planning decision notices. Each page was originally a scanned document and generally represents a different section of a planning decision notice. The goal was to identify the type of page and extract important information such as application numbers and applicant names.
+## Overview of the Data
+The dataset contains several pages from anonymised planning decision notices. Each page was originally a scanned document and generally represents a different section of a planning decision notice. The goal of this analysis was to identify the type of page and extract important information such as:
+
+- **Application numbers**
+- **Applicant names**
 
 From the sample results, four main types of pages were identified:
-•	Planning charges
-•	Application for planning permission notice of approval
-•	Grant of conditional planning permission
-•	Notice of approval of details
 
-**Findings from the Results**
-The extracted results show that useful information can be identified from the pages.
-Application numbers were successfully found in most pages. Some pages include more than one application number, which suggests that the document may refer to multiple related planning cases. For example, Page 1 contains three application numbers, while Page 4 contains two. Page 2 only contains one application number, and Page 3 does not contain any visible number.
+- Planning charges
+- Application for planning permission notice of approval
+- Grant of conditional planning permission
+- Notice of approval of details
 
-Applicant names were also extracted in most cases. For example:
-•	Page 1 identifies Mr. & Mrs. J.M Doe, showing joint applicants.
-•	Page 2 extracts Mr M Dale, which might be a typical format used in planning documents.
-•	Page 4 extracts Mrs AM Stephens, showing names with initials.
-•	Page 3 contains the phrase “As named on the reverse”, which means the applicant name is likely written on another page rather than the current one.
+---
 
-These results show that planning decision notices usually follow a similar structure.
+## Findings from the Results
+The extracted results demonstrate that useful information can be identified from the pages.
 
-**Limitations**
-•	One limitation is the quality of the scanned documents. Older documents may contain faded text, marks, or unusual formatting. When the scanned image is not clear, the text conversion process may produce small mistakes, which can affect the information that is extracted.
-•	Another limitation is that the page type is determined by searching for specific phrases. If a document uses different wording or formatting, the system may not recognise the correct category.
-•	Similarly, the name extraction works best when a person’s title (such as Mr or Mrs) appears before their name. If the applicant is an organisation or the name appears without a title, it may be harder to detect.
-•	Finally, the sample dataset is small, so it is difficult to fully measure how accurate the method would be when applied to a larger number of documents.
+- **Application Numbers:**  
+  Application numbers were successfully found in most pages. Some pages include more than one application number, indicating multiple related planning cases. For example:
+  - Page 1: three application numbers
+  - Page 4: two application numbers
+  - Page 2: one application number
+  - Page 3: no visible application number
 
-**Alternate methods**
-•	There are several ways the system could be improved in the future.
-•	First, more advanced text analysis methods could be used to better understand the content of each page rather than relying only on specific phrases.
-•	Second, improved name recognition tools could help identify both individual applicants and organisations more accurately.
-•	Third, systems that consider the layout of the page (for example where text appears on the document) could help identify information more reliably, especially in structured forms like planning notices.
+- **Applicant Names:**  
+  Applicant names were extracted in most cases. Examples include:
+  - Page 1: `Mr. & Mrs. J.M Doe` (joint applicants)
+  - Page 2: `Mr M Dale` (typical planning document format)
+  - Page 4: `Mrs AM Stephens` (names with initials)
+  - Page 3: `"As named on the reverse"` (applicant name appears on another page)
 
+These results indicate that planning decision notices generally follow a **consistent structure**.
+
+---
+
+## Limitations
+- **Scanned Document Quality:**  
+  Older documents may contain faded text, marks, or unusual formatting, which can lead to OCR mistakes affecting extracted information.
+  
+- **Page Type Classification:**  
+  Page type is determined using specific keyword phrases. Documents with different wording or formatting may not be correctly categorized.
+  
+- **Applicant Name Extraction:**  
+  Extraction works best when a person’s title (e.g., Mr, Mrs) precedes the name. Names without titles or organisational names may not be detected accurately.
+  
+- **Sample Size:**  
+  The dataset is small, limiting the ability to fully evaluate accuracy on larger document sets.
+
+---
+
+## Alternate Methods / Future Improvements
+- **Advanced Text Analysis:**  
+  Use more sophisticated NLP techniques to understand the content of each page, instead of relying solely on specific phrases.
+
+- **Improved Name Recognition:**  
+  Incorporate tools that better detect individual and organisational names for more accurate extraction.
+
+- **Layout-Aware Processing:**  
+  Consider document layout (text positions, columns, forms) to improve reliability, especially for structured planning notices.
