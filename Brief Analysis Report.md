@@ -1,6 +1,6 @@
 ##Brief Analysis Report
 
-**Overview of the Data**
+##Overview of the Data**
 The dataset contains several pages from anonymised planning decision notices. Each page was originally a scanned document and generally represents a different section of a planning decision notice. The goal was to identify the type of page and extract important information such as **Application numbers** and **Applicant names**.
 
 From the sample results, four main types of pages were identified:
