@@ -1,5 +1,3 @@
-# OCR-Based Planning Document Extraction Pipeline
-
 ## System Overview
 This pipeline uses a **"consensus" model** between two extraction strategies to maximize accuracy.  
 - **Engine A**: Regex-driven, high-precision pattern matching.  
