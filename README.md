@@ -1,58 +1,80 @@
-**System Overview**
-The pipeline uses a "consensus" model between two extraction strategies to maximize accuracy. While Engine A relies on strict pattern matching (Regex), Engine B uses positional logic to capture edge cases where patterns may fail due to Optical Character Recognition (OCR) noise.
+# OCR-Based Planning Document Extraction Pipeline
 
-#1. Environment Setup
-System Dependencies
-The code requires the Tesseract OCR engine and Poppler (for PDF rendering) to be installed on the host operating system:
-•	Tesseract-OCR: The primary engine for Optical Character Recognition.
-•	Poppler-utils: Required by pdf2image to convert PDF pages into image objects.
+## System Overview
+This pipeline uses a **"consensus" model** between two extraction strategies to maximize accuracy.  
+- **Engine A**: Regex-driven, high-precision pattern matching.  
+- **Engine B**: Positional logic fallback, designed to capture edge cases caused by OCR noise.  
 
-Python Libraries
-Pytesseract: Python wrapper for Tesseract OCR.
-pdf2image: Converts PDF files into PIL Image objects.
-Spacy: Natural Language Processing for entity filtering.
-Pandas: Data manipulation and CSV export.
-Re: Regular expression engine for pattern matching.
+The system merges outputs from both engines to provide the most accurate applicant and application number extraction.
 
+---
 
-#2. Implementation Logic
-A. Document Classification (NLPClassifier)
-The classifier identifies the document type by scanning the OCR output for specific legal phrases.
-•	Mechanism: Case-insensitive keyword matching.
-•	Categories: * Grant of conditional planning permission
-o	Notice of approval of details
-o	Application for planning permission
-o	Planning charges
+## 1. Environment Setup
 
-B. Extraction Engine A (Regex-Driven)
-This engine is optimized for high-precision extraction of structured strings.
-•	Application Numbers: Uses a non-capturing group regex to find patterns like 2024/0123 or DC/22/500.
-•	Applicant Names: Searches for honorifics (Mr, Mrs, Dr) and uses a "sliding window" to check the three lines following the "Applicant" keyword.
+### System Dependencies
+The following software must be installed on the host system:
 
-C. Extraction Engine B (Positional-Driven)
-Acts as a fallback for Engine A.
-•	Logic: It looks for the "Applicant" label and extracts text either immediately following a colon (:) or on the subsequent line, regardless of whether a title (Mr/Mrs) is present.
-•	Validation: Implements a "Blacklist" (e.g., Council, London, Road) to ensure address lines aren't misidentified as people.
+- **Tesseract-OCR**: Primary OCR engine for extracting text from images.  
+- **Poppler-utils**: Required by `pdf2image` to convert PDF pages into image objects.
 
-**3. Execution Workflow**
-1.	Conversion: The PDF is converted to images at 300 DPI to ensure high OCR legibility.
-2.	OCR Processing: Tesseract is configured with --psm 6 (Assume a single uniform block of text) to maintain the layout of form-based documents.
-3.	Parallel Execution: * run_pipeline_A extracts category, application numbers, and names.
-o	run_pipeline_B focuses specifically on capturing names via positional logic.
-4.	Data Merging: The results are merged using a Left Join on the Page Number.
-5.	Coalescing: If Engine A returns "N/A" or "None" for an applicant, the system automatically fills that cell with the result from Engine B.
+### Python Libraries
+Install via pip:
 
-4. Usage
-To run the code, ensure your PDF is uploaded to the specified path and execute the main block:
-Python
-# Update this path to your local file
+- **pytesseract**: Python wrapper for Tesseract OCR.  
+- **pdf2image**: Converts PDF files into PIL Image objects.  
+- **spacy**: NLP library for entity extraction and filtering.  
+- **pandas**: Data manipulation and CSV export.  
+- **re**: Regular expressions for pattern matching.
+
+---
+
+## 2. Implementation Logic
+
+### A. Document Classification (NLPClassifier)
+The classifier identifies the document type from OCR text using keyword scanning.
+
+- **Mechanism**: Case-insensitive keyword matching.  
+- **Supported Categories**:
+  - Grant of conditional planning permission
+  - Notice of approval of details
+  - Application for planning permission
+  - Planning charges
+
+---
+
+### B. Extraction Engine A (Regex-Driven)
+Optimized for **high-precision extraction**.
+
+- **Application Numbers**: Uses regex with non-capturing groups to detect patterns like `2024/0123` or `DC/22/500`.  
+- **Applicant Names**: Searches for honorifics (`Mr`, `Mrs`, `Dr`) and checks the **three lines following the "Applicant" keyword** to locate valid names.
+
+---
+
+### C. Extraction Engine B (Positional-Driven)
+Fallback for Engine A, targeting edge cases.
+
+- **Logic**: Looks for the "Applicant" label and extracts text either:
+  - Immediately following a colon (`:`)  
+  - On the subsequent line, regardless of titles
+- **Validation**: Uses a **blacklist** (e.g., Council, London, Road) to avoid capturing addresses or organization names as people.
+
+---
+
+## 3. Execution Workflow
+
+1. **PDF Conversion**: Convert PDF pages to images at **300 DPI** for optimal OCR quality.  
+2. **OCR Processing**: Tesseract runs with `--psm 6` (single uniform text block) to preserve layout of forms.  
+3. **Parallel Extraction**:
+   - `run_pipeline_A` → Extracts category, application numbers, and applicant names.  
+   - `run_pipeline_B` → Captures applicant names using positional logic as a fallback.  
+4. **Data Merging**: Merge both pipelines on **Page Number** (Left Join).  
+5. **Coalescing**: If Engine A returns `"N/A"` or `"None"` for an applicant, replace it with Engine B's result.
+
+---
+
+## 4. Usage
+
+### Step 1: Set File Path
+```python
+# Update this path to your local PDF
 FILE_PATH = "your_document.pdf"
-
-# Run the unified process
-df_A = run_pipeline_A(FILE_PATH)
-df_B = run_pipeline_B(FILE_PATH)
-final_df = merge_results(df_A, df_B)
-
-# View and Save
-print(final_df)
-final_df.to_csv("extracted_data.csv")
